@@ -3,8 +3,6 @@
 ![AWS EKS](https://img.shields.io/badge/AWS%20EKS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![kubectl](https://img.shields.io/badge/kubectl-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
-![IAM](https://img.shields.io/badge/AWS%20IAM-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
 > Deploy and manage a containerized 2048 Game on Amazon EKS with Load Balancing
 
@@ -64,7 +62,7 @@ Internet → Browser → 🎮 2048 Game!
 
 ### STEP 2 — Create the EKS Cluster
 
-Navigate to: **AWS Console → EKS → Create Cluster → Custom configuration**
+Navigate to: **AWS Console → EKS → Create Cluster → Custom Configuration**
 
 | Setting | Value |
 |---------|-------|
@@ -72,9 +70,9 @@ Navigate to: **AWS Console → EKS → Create Cluster → Custom configuration**
 | Cluster IAM role | `eks-cluster-role` |
 | Kubernetes version | `1.35` |
 | VPC | Default VPC |
-| Cluster endpoint access | Public and private |
+| Cluster endpoint access | Public and Private |
 
-> ⚠️ **Important:** Select **"Custom configuration"** and ensure **EKS Auto Mode is OFF**.
+> ⚠️ **Important:** Select **"Custom Configuration"** and ensure **EKS Auto Mode is OFF**.
 
 > ⏳ Wait 10–12 minutes for the cluster status to become **ACTIVE**.
 
@@ -82,7 +80,7 @@ Navigate to: **AWS Console → EKS → Create Cluster → Custom configuration**
 
 ### STEP 3 — Add a Node Group
 
-Navigate to: **EKS → eks-cluster-1 → Compute → Add node group**
+Navigate to: **EKS → eks-cluster-1 → Compute → Add Node Group**
 
 | Setting | Value |
 |---------|-------|
@@ -109,11 +107,11 @@ aws sts get-caller-identity
 # Update kubeconfig for your cluster
 aws eks update-kubeconfig --region us-east-1 --name eks-cluster-1
 
-# Confirm nodes are ready
+# Confirm Nodes are ready
 kubectl get nodes
 ```
 
-**Expected output:**
+**Expected Output:**
 ```
 NAME                           STATUS   ROLES    AGE   VERSION
 ip-172-31-xx-xx.ec2.internal   Ready    <none>   2m    v1.35.x-eks-xxxxx
