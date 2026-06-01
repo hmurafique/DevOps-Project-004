@@ -34,12 +34,12 @@ Internet → Browser → 🎮 2048 Game!
 
 | Tool | Purpose |
 |------|---------|
-| ![AWS EKS](https://img.shields.io/badge/AWS%20EKS-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Managed Kubernetes cluster |
-| ![CloudShell](https://img.shields.io/badge/AWS%20CloudShell-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Browser-based CLI |
+| ![AWS EKS](https://img.shields.io/badge/AWS%20EKS-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Managed Kubernetes Cluster |
+| ![CloudShell](https://img.shields.io/badge/AWS%20CloudShell-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Browser-Based CLI |
 | ![kubectl](https://img.shields.io/badge/kubectl-326CE5?style=flat&logo=kubernetes&logoColor=white) | Kubernetes CLI |
-| ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) | Container runtime |
+| ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) | Container Runtime |
 | ![ELB](https://img.shields.io/badge/AWS%20ELB-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Load Balancer for external access |
-| ![IAM](https://img.shields.io/badge/AWS%20IAM-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Roles & permissions |
+| ![IAM](https://img.shields.io/badge/AWS%20IAM-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Roles & Permissions |
 
 ---
 
