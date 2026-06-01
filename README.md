@@ -1,15 +1,12 @@
 # 🚀 DevOps Project 004 — Kubernetes End-to-End Project on AWS EKS
 
-<div align="center">
-
-![AWS EKS](https://img.shields.io/badge/AWS-EKS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+![AWS EKS](https://img.shields.io/badge/AWS%20EKS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![kubectl](https://img.shields.io/badge/kubectl-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![IAM](https://img.shields.io/badge/AWS%20IAM-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
-**Deploy and manage containerized 2048 Game on Amazon EKS with Load Balancing**
-
-</div>
+> Deploy and manage a containerized 2048 Game on Amazon EKS with Load Balancing
 
 ---
 
@@ -39,25 +36,25 @@ Internet → Browser → 🎮 2048 Game!
 
 | Tool | Purpose |
 |------|---------|
-| **AWS EKS** | Managed Kubernetes cluster |
-| **AWS CloudShell** | Browser-based CLI |
-| **kubectl** | Kubernetes CLI |
-| **Docker** | Container runtime |
-| **AWS ELB** | Load Balancer for external access |
-| **IAM** | Roles & permissions |
+| ![AWS EKS](https://img.shields.io/badge/AWS%20EKS-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Managed Kubernetes cluster |
+| ![CloudShell](https://img.shields.io/badge/AWS%20CloudShell-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Browser-based CLI |
+| ![kubectl](https://img.shields.io/badge/kubectl-326CE5?style=flat&logo=kubernetes&logoColor=white) | Kubernetes CLI |
+| ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) | Container runtime |
+| ![ELB](https://img.shields.io/badge/AWS%20ELB-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Load Balancer for external access |
+| ![IAM](https://img.shields.io/badge/AWS%20IAM-FF9900?style=flat&logo=amazon-aws&logoColor=white) | Roles & permissions |
 
 ---
 
 ## 🚀 Implementation Steps
 
-### STEP 1 — IAM Roles Banao
+### STEP 1 — Create IAM Roles
 
-#### Role 1: eks-cluster-role
-- Trusted entity: `AWS Service → EKS → EKS Cluster`
+**Role 1: `eks-cluster-role`**
+- Trusted entity: AWS Service → EKS → EKS Cluster
 - Policy: `AmazonEKSClusterPolicy`
 
-#### Role 2: eks-node-grp-role
-- Trusted entity: `AWS Service → EC2`
+**Role 2: `eks-node-grp-role`**
+- Trusted entity: AWS Service → EC2
 - Policies:
   - `AmazonEKSWorkerNodePolicy`
   - `AmazonEC2ContainerRegistryReadOnly`
@@ -65,27 +62,27 @@ Internet → Browser → 🎮 2048 Game!
 
 ---
 
-### STEP 2 — EKS Cluster Banao
+### STEP 2 — Create the EKS Cluster
 
-**AWS Console → EKS → Create Cluster → Custom configuration**
+Navigate to: **AWS Console → EKS → Create Cluster → Custom configuration**
 
 | Setting | Value |
 |---------|-------|
 | Name | `eks-cluster-1` |
 | Cluster IAM role | `eks-cluster-role` |
-| Kubernetes version | 1.35 |
+| Kubernetes version | `1.35` |
 | VPC | Default VPC |
 | Cluster endpoint access | Public and private |
 
-> ⚠️ **Important:** "Custom configuration" select karo aur EKS Auto Mode **OFF** rakho!
+> ⚠️ **Important:** Select **"Custom configuration"** and ensure **EKS Auto Mode is OFF**.
 
-⏳ 10-12 minute wait karo — Status ACTIVE hone ka
+> ⏳ Wait 10–12 minutes for the cluster status to become **ACTIVE**.
 
 ---
 
-### STEP 3 — Node Group Add Karo
+### STEP 3 — Add a Node Group
 
-**EKS → eks-cluster-1 → Compute → Add node group**
+Navigate to: **EKS → eks-cluster-1 → Compute → Add node group**
 
 | Setting | Value |
 |---------|-------|
@@ -93,30 +90,30 @@ Internet → Browser → 🎮 2048 Game!
 | Node IAM role | `eks-node-grp-role` |
 | AMI type | Amazon Linux 2023 (x86_64) Standard |
 | Instance type | `t3.medium` |
-| Disk size | `20 GiB` |
-| Desired/Min size | `1` |
-| Maximum size | `2` |
+| Disk size | 20 GiB |
+| Desired / Min size | 1 |
+| Maximum size | 2 |
 
-⏳ 2-3 minute wait karo
+> ⏳ Wait 2–3 minutes for the node group to become ready.
 
 ---
 
-### STEP 4 — kubectl Configure Karo
+### STEP 4 — Configure kubectl
 
-**AWS Console → CloudShell (>_ icon)**
+Open **AWS CloudShell** from the console toolbar (`>_` icon).
 
 ```bash
-# Identity verify karo
+# Verify your identity
 aws sts get-caller-identity
 
-# kubeconfig update karo
+# Update kubeconfig for your cluster
 aws eks update-kubeconfig --region us-east-1 --name eks-cluster-1
 
-# Nodes check karo
+# Confirm nodes are ready
 kubectl get nodes
 ```
 
-**Expected:**
+**Expected output:**
 ```
 NAME                           STATUS   ROLES    AGE   VERSION
 ip-172-31-xx-xx.ec2.internal   Ready    <none>   2m    v1.35.x-eks-xxxxx
@@ -124,7 +121,7 @@ ip-172-31-xx-xx.ec2.internal   Ready    <none>   2m    v1.35.x-eks-xxxxx
 
 ---
 
-### STEP 5 — 2048 Game Pod Deploy Karo
+### STEP 5 — Deploy the 2048 Game Pod
 
 ```bash
 cat > 2048-pod.yaml << 'EOF'
@@ -146,11 +143,11 @@ kubectl apply -f 2048-pod.yaml
 kubectl get pods
 ```
 
-> ⚠️ **Important Fix:** `blackicebird/2048` deprecated hai. Use: `public.ecr.aws/l6m2t8p7/docker-2048:latest`
+> ⚠️ **Note:** The `blackicebird/2048` image is deprecated. Use `public.ecr.aws/l6m2t8p7/docker-2048:latest` instead.
 
 ---
 
-### STEP 6 — LoadBalancer Service Banao
+### STEP 6 — Create the LoadBalancer Service
 
 ```bash
 cat > mygame-svc.yaml << 'EOF'
@@ -174,18 +171,19 @@ kubectl get svc mygame-svc
 
 ---
 
-### STEP 7 — Game Access Karo
+### STEP 7 — Access the Game
 
 ```bash
 kubectl describe svc mygame-svc
 ```
 
-Browser mein open karo:
+Open your browser and navigate to:
+
 ```
 http://<EXTERNAL-IP>
 ```
 
-⏳ 2-3 minute wait karo DNS propagation ke liye — **2048 Game live! 🎮**
+> ⏳ Wait 2–3 minutes for DNS propagation — the 2048 Game is now live! 🎮
 
 ---
 
@@ -194,9 +192,9 @@ http://<EXTERNAL-IP>
 | Issue | Fix |
 |-------|-----|
 | `ErrImagePull` | Use `public.ecr.aws/l6m2t8p7/docker-2048:latest` |
-| Node not Ready | Wait 2-3 min after node group creation |
-| Site can't be reached | Wait 2-3 min for DNS propagation |
-| EKS Auto Mode warnings | Select "Custom configuration", disable Auto Mode |
+| Node not Ready | Wait 2–3 minutes after node group creation |
+| Site can't be reached | Wait 2–3 minutes for DNS propagation |
+| EKS Auto Mode warnings | Select "Custom configuration" and disable Auto Mode |
 
 ---
 
@@ -207,24 +205,26 @@ kubectl delete svc mygame-svc
 kubectl delete pod 2048-pod
 ```
 
-AWS Console: Node Group delete → Cluster delete
+Then in the AWS Console: **Delete Node Group → Delete Cluster**
 
 ---
 
 ## 📚 What I Learned
 
-- AWS EKS cluster setup aur configuration
-- IAM Roles for EKS (Cluster + Node Group)
-- kubectl commands for pod management
-- Kubernetes Pod aur Service YAML
-- LoadBalancer type service for external access
-- AWS CloudShell for browser-based DevOps
+- AWS EKS cluster setup and configuration
+- IAM Roles for EKS (Cluster & Node Group)
+- `kubectl` commands for pod management
+- Kubernetes Pod and Service YAML manifests
+- LoadBalancer service type for external access
+- AWS CloudShell for browser-based DevOps workflows
 
 ---
 
 ## 👤 Author
 
 **Hafiz Muhammad Umar Rafique**
-- GitHub: [@hmurafique](https://github.com/hmurafique)
+GitHub: [@hmurafique](https://github.com/hmurafique)
 
-<div align="center">⭐ Star this repo if you found it helpful!</div>
+---
+
+> ⭐ Star this repo if you found it helpful!
