@@ -1,4 +1,5 @@
-# 🚀 DevOps Project 004 — Kubernetes End-to-End Project on AWS EKS
+# 🚀 DevOps Project 004 
+# Kubernetes End-to-End Project on AWS EKS
 
 ![AWS EKS](https://img.shields.io/badge/AWS%20EKS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
